@@ -1,21 +1,22 @@
 ﻿@model Facebook.Models.Post
 
-@using (Ajax.BeginForm("Create", "Posts",new AjaxOptions() { HttpMethod="POST",UpdateTargetId= "disPlayAllPost", InsertionMode=InsertionMode.Replace}))
+@using (Ajax.BeginForm("Create", "Posts",new AjaxOptions() { HttpMethod="POST",UpdateTargetId= "disPlayAllPost", InsertionMode=InsertionMode.Replace}, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
+       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.postContent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.postContent, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.postContent, "", new { @class = "text-danger" })
+
+                <input type="file" name="ImagePost" />
             </div>
         </div>
-
+        
        
 
        

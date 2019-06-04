@@ -32,14 +32,19 @@ namespace Facebook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "postId,postContent,postDate,postDelete,userId")] Post post)
+        public ActionResult Create([Bind(Include = "postId,postContent,postDate,postDelete,userId")] Post post ,HttpPostedFileBase ImagePost)
         {
+            
             var result = db.Posts.Where(i => i.postDelete == false).Include(i=>i.Like).Include(i=>i.ApplicationUser).Include(i=>i.Comment).OrderByDescending(i => i.postDate);
-            ViewBag.userId = Session["ID"].ToString();
-            post.userId = Session["ID"].ToString();
-            post.postDate = DateTime.Now;
-            post.postDelete = false;
-           
+            ViewBag.userId = Session["ID"].ToString();  // id this user Create Post
+            post.userId = Session["ID"].ToString();   // id this user Create Post
+            post.postDate = DateTime.Now;    //Time Create this post 
+            post.postDelete = false;   // Default  is Not Deleted 
+            if (ImagePost != null)    // if post  Has image
+            {
+                post.postImg = new byte[ImagePost.ContentLength]; //add Img in  Database
+                ImagePost.InputStream.Read(post.postImg, 0, ImagePost.ContentLength);
+            }
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);

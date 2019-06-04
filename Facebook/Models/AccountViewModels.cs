@@ -68,7 +68,7 @@ namespace Facebook.Models
         public string userName { get; set; }
         public string userAddress { get; set; }
         public DateTime userBthDay { get; set; }
-
+        public byte[] userImage { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

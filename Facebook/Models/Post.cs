@@ -18,6 +18,7 @@ namespace Facebook.Models
         public bool postDelete { get; set; }
         [ForeignKey("ApplicationUser")]
         public string userId { get; set; }
+        public byte[] postImg { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }

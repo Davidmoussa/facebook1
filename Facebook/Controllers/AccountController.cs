@@ -150,11 +150,20 @@ namespace Facebook.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.userName, Email = model.Email,userAddress=model.userAddress,userBhtDay=model.userBthDay };
+                // Add image  user 
+                if (Image != null)
+                {
+                    model.userImage = new byte[Image.ContentLength];
+                    Image.InputStream.Read(model.userImage, 0, Image.ContentLength);
+                }
+
+
+                var user = new ApplicationUser { UserName = model.userName, Email = model.Email,userAddress=model.userAddress,userBhtDay=model.userBthDay , userImage=model.userImage
+                    };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

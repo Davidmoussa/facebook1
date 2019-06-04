@@ -222,6 +222,14 @@
     <Compile Include="Migrations\201905312355128_M5.Designer.cs">
       <DependentUpon>201905312355128_M5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906041535257_name.cs" />
+    <Compile Include="Migrations\201906041535257_name.Designer.cs">
+      <DependentUpon>201906041535257_name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906041729085_David22.cs" />
+    <Compile Include="Migrations\201906041729085_David22.Designer.cs">
+      <DependentUpon>201906041729085_David22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -235,6 +243,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image User\UserImg.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Gateway.txt" />
@@ -319,6 +328,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905312355128_M5.resx">
       <DependentUpon>201905312355128_M5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906041535257_name.resx">
+      <DependentUpon>201906041535257_name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906041729085_David22.resx">
+      <DependentUpon>201906041729085_David22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

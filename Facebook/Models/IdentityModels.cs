@@ -18,6 +18,8 @@ namespace Facebook.Models
 
         public string userAddress { get; set; }
         public bool userBlock { get; set; }
+        public byte[] userImage { get; set; }
+
         public virtual ICollection<Post> Post { get; set; }
         public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
