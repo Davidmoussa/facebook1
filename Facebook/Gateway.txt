@@ -1,0 +1,28 @@
+﻿AjaxGateway.Net
+
+
+===============
+Server Config
+===============
+<appSettings>
+	<!-- Gateway Framework Settings -->
+	<add key="GatewayRoute" value="none" />
+	<add key="EnableConsole" value="false" />
+	<add key="AnonymousGateway" value="false" />
+	<add key="EnableCorsManager" value="false" />
+	<add key="EnableAuthentication" value="false" />
+	<add key="TagPrecompressedContent" value="false" />
+	<add key="SecureConnectionRequired" value="false" />
+	<add key="SecureConnectionRedirectPort" value="443" />
+	<add key="AllowAccessControlOriginValue" value="*" />
+	<add key="AllowAccessControlMaxAgeValue" value="1728000" />
+	<add key="AllowAccessControlCredentials" value="true" />
+	<add key="TransmitPacketSize" value="32768" />
+	<add key="CompressionThresholdSize" value="1024" />
+	<add key="DisableHtmlCachedContent" value="false" />
+	<add key="UnsecureWhiteList" value="" />
+	<add key="EnableDebugLevel" value="false" />
+	// <!-- Gateway Framework Install Settings -->
+</appSettings>
+
+

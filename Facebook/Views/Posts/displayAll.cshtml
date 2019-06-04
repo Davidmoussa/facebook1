@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Facebook.Models.Post>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            <div>
+                <section>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                </section>
+                <section>
+                    @Html.DisplayFor(modelItem => item.postContent)
+                </section>
+                <section>
+                   
+                @Ajax.ActionLink("Like", "Create", "Likes",ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "disPlayAllPost", InsertionMode = InsertionMode.Replace }, routeValues: new { postId = item.postId });    
+                @Ajax.ActionLink(item.Like.Count().ToString(), "displayAll", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LikesModalBody", InsertionMode = InsertionMode.Replace,OnSuccess="LikesModelShow()"  }, routeValues: new { postId = item.postId });
+                @Ajax.ActionLink("Comment", "ListComment", "Comments", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listComment", InsertionMode = InsertionMode.Replace ,OnSuccess="showAndAddComment()"}, routeValues: new { postId = item.postId });
+                
+                </section>
+            </div>
+        </td>
+        
+       
+    </tr>
+}
+
+</table>

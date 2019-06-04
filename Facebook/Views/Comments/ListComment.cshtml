@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Facebook.Models.Comment>
+
+
+<table class="table">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="alert alert-light" role="alert">
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName))
+                    @Html.DisplayFor(modelItem => item.Content);
+                </div>
+            </td>
+
+        </tr>
+    }
+
+</table>

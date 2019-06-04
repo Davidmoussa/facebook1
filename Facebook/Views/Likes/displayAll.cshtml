@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Facebook.Models.Like>
+
+
+
+
+
+<table class="table">
+    
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="btn-success">
+            <div class="alert alert-light" role="alert">
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)    
+            </div>
+          
+        </td>
+        
+    </tr>
+}
+
+</table>
