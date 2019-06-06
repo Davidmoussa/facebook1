@@ -230,9 +230,14 @@
     <Compile Include="Migrations\201906041729085_David22.Designer.cs">
       <DependentUpon>201906041729085_David22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906061547151_TabelFriend.cs" />
+    <Compile Include="Migrations\201906061547151_TabelFriend.Designer.cs">
+      <DependentUpon>201906061547151_TabelFriend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -335,6 +340,12 @@
     <EmbeddedResource Include="Migrations\201906041729085_David22.resx">
       <DependentUpon>201906041729085_David22.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906061547151_TabelFriend.resx">
+      <DependentUpon>201906061547151_TabelFriend.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

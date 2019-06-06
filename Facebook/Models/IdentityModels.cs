@@ -6,6 +6,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Facebook.Models
 {
@@ -24,6 +27,22 @@ namespace Facebook.Models
         public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
 
+        //anly  Frand Requests 
+        public virtual ICollection<Friend> SentFriendRequests { get; set; }
+        //anly  Frand ReceievedFriendRequests
+        public virtual ICollection<Friend> ReceievedFriendRequests { get; set; }
+        // get  All  Friend OF this  user only  Friend
+        [NotMapped]
+        public virtual ICollection<Friend> Friends
+        {
+            get
+            {
+                //Concat  this Friend Send And Receieved 
+                var friends = SentFriendRequests.Where(i=>i.FriendRequestFlag==FriendRequestFlag.Approved).ToList();
+                friends.AddRange(ReceievedFriendRequests.Where(i => i.FriendRequestFlag == FriendRequestFlag.Approved));
+                return friends;
+            }
+        }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -39,15 +58,33 @@ namespace Facebook.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Friend>()
+           .HasRequired(a => a.RequestedBy)
+           .WithMany(b => b.SentFriendRequests)
+           .HasForeignKey(c => c.RequestedById);
 
-      //  public IEnumerable ApplicationUsers { get; internal set; }
+            modelBuilder.Entity<Friend>()
+           .HasRequired(a => a.RequestedTo)
+           .WithMany(b => b.ReceievedFriendRequests)
+           .HasForeignKey(c => c.RequestedToId);
+
+        }
+
+        //  public IEnumerable ApplicationUsers { get; internal set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Friend> Friend { get; set; }
 
         public static ApplicationDbContext Create()
         {
+
             return new ApplicationDbContext();
         }
     }
