@@ -22,7 +22,8 @@ namespace Facebook.Models
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
-
+        [NotMapped]
+        public string TimeAgo { get { return MethodAndFanction.TimeAgo(postDate); } }
 
 
 

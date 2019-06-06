@@ -1,127 +1,100 @@
 ﻿@model IEnumerable<Facebook.Models.Post>
 
-<table class="table">
-
-
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>
-                @*<div class="row">
-                    <div class="" style="font-size:20px">
-
-                        @if (item.ApplicationUser.userImage != null)
-                        {
-                            var base64 = Convert.ToBase64String(item.ApplicationUser.userImage);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img src="@imgSrc" style="width:25px;height:25px" alt="@item.ApplicationUser.UserName" />
-                        }
-                        else
-                        {
-                            <img src="~/Content/Image User/UserImg.png" style="width:25px;height:25px" alt="@item.ApplicationUser.UserName" />
-                        }
-
-                        @item.ApplicationUser.UserName
-                    </div>
-                    <section class="">
-                        <h5 class="col-lg-8">@item.postContent</h5>
-                        @if (item.postImg != null)
-                        {
-                            var base64 = Convert.ToBase64String(item.postImg);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img src="@imgSrc" style="width:455px;height:450px" alt="@item.postDelete" />
-                        }
-                    </section>
-                    <section>
-
-                        @Ajax.ActionLink("Like", "Create", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "disPlayAllPost", InsertionMode = InsertionMode.Replace }, routeValues: new { postId = item.postId });
-                        @Ajax.ActionLink(item.Like.Count().ToString(), "displayAll", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LikesModalBody", InsertionMode = InsertionMode.Replace, OnSuccess = "LikesModelShow()" }, routeValues: new { postId = item.postId });
-                        @Ajax.ActionLink("Comment", "ListComment", "Comments", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listComment", InsertionMode = InsertionMode.Replace, OnSuccess = "showAndAddComment()" }, routeValues: new { postId = item.postId });
-
-                    </section>
-                </div>*@
-
-
-                <!---Post Box  --->>
-                <!--Section: Social news card-->
-                <section class="pt-5 pb-3">
-
-                    <!--Grid row-->
-                    <div class="row">
-
-                        <!--Grid column-->
-                        <div class="col-md-6 col-lg-4">
-
-                            <!--Card-->
-                            <div class="card news-card">
-
-                                <!--Heading-->
-                                <div class="card-body card-block">
-                                    <div class="content">
-                                        <div class="right-side-meta">14 h</div>
-                                        @if (item.ApplicationUser.userImage != null)
-                                        {
-                                            var base64 = Convert.ToBase64String(item.ApplicationUser.userImage);
-                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                            <img src="@imgSrc" class="rounded-circle avatar-img z-depth-1-half" alt="@item.ApplicationUser.UserName" /> @item.ApplicationUser.UserName
-                                        }
-                                        else
-                                        {
-                                            <img src="~/Content/Image User/UserImg.png" class="rounded-circle avatar-img z-depth-1-half" alt="@item.ApplicationUser.UserName" />@item.ApplicationUser.UserName
-                                        }
-                                    </div>
-                                </div>
-
-                                <!--Card image-->
-
-                                @if (item.postImg != null)
-                                {
-                                    var base64 = Convert.ToBase64String(item.postImg);
-                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                    <img src="@imgSrc" class="img-fluid no-radius" alt="@item.postDelete" />
-                                }
-                                <!--Card content-->
-                                <div class="card-body card-block">
-
-                                    <!--Social meta-->
-                                    <div class="social-meta">
-                                        <p> @item.postContent </p>
-                                        <span>
-                                            @Ajax.ActionLink(" ",actionName: "Create",controllerName: "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "disPlayAllPost", InsertionMode = InsertionMode.Replace }, routeValues: new { postId = item.postId, @class = "fa fa-heart-o" });
-                                            @Ajax.ActionLink(item.Like.Count().ToString() + " likes", "displayAll", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LikesModalBody", InsertionMode = InsertionMode.Replace, OnSuccess = "LikesModelShow()" }, routeValues: new { postId = item.postId });
-
-
-                                        </span>
-                                        <p>
-                                            @Ajax.ActionLink("Comment", "ListComment", "Comments", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listComment", InsertionMode = InsertionMode.Replace, OnSuccess = "showAndAddComment()" }, routeValues: new { postId = item.postId, @class = "fa fa-comment" });
-
-                                        </p>
-                                    </div>
-
-
-
-
-                                </div>
-                                <!--Card content-->
-
-                            </div>
-                            <!--Card-->
-
-                        </div>
-                        <!--Grid column-->
-
-                    </div>
-                    <!--Grid row-->
-
-                </section>
-                <!--Section: Social news card-->
-
-
-            </td>
-
-
-        </tr>
+@*<table class="table">*@
+<style>
+    .postHeders {
+        font-size: 20px;
+       
+        
+        padding: 5px;
+        
+       
+        
     }
 
-</table>
+    .postControl {
+        margin: 0px 5px;
+        padding: 8px;
+       
+        display:flex;
+    }
+
+    .postContenner {
+        margin: 5px;
+        box-shadow: 1px 1px 1px gray;
+        margin :12px 5px;
+        border-radius: 5px;
+        padding: 3px;
+        border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25);
+        
+    }
+
+    .postcontent {
+        margin: 5px;
+        font-size: 15px;
+        padding:10px;
+       
+    }
+</style>
+
+@foreach (var item in Model)
+{
+
+    @*<tr>
+
+        <td>*@
+    <div class="postContenner">
+        <div class="postHeders ">
+
+            @if (item.ApplicationUser.userImage != null)
+            {
+                var base64 = Convert.ToBase64String(item.ApplicationUser.userImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" style="width:35px;height:32px ; border-radius:32px" alt="@item.ApplicationUser.UserName" />
+            }
+            else
+            {
+                <img src="~/Content/Image User/UserImg.png" style="width:32px;height:32px" alt="@item.ApplicationUser.UserName" />
+            }
+
+           @item.ApplicationUser.UserName  
+            <div style="font-size:10px; margin-left:40px"> @item.TimeAgo </div>
+            <hr />
+        </div>
+        
+        <div class="postcontent">
+            <p style="margin:5px; font-size:14px; padding:5px;">  @item.postContent</p>
+                @if (item.postImg != null)
+                {
+                    var base64 = Convert.ToBase64String(item.postImg);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" style="width:100%;height:100%" alt="@item.postDelete" />
+                }
+</div>
+        <hr />
+        <section class="postControl col-lg-12 col-12 col-md-12">
+
+            <i style="flex-grow:6; font-size :22px ; color:black">
+                @Ajax.ActionLink(item.Like.Count().ToString()+"  ", "displayAll", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LikesModalBody", InsertionMode = InsertionMode.Replace, OnSuccess = "LikesModelShow()" }, routeValues: new { postId = item.postId })
+                
+                @Ajax.ActionLink("Like", "Create", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "disPlayAllPost", InsertionMode = InsertionMode.Replace }, routeValues: new { postId = item.postId })
+            </i>
+            <i style="flex-grow:1  ; font-size :22px ; color:black ">
+                @Ajax.ActionLink("Comment", "ListComment", "Comments", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listComment", InsertionMode = InsertionMode.Replace, OnSuccess = "showAndAddComment()" }, routeValues: new { postId = item.postId })
+            </i>
+        </section>
+    </div>
+
+
+                <!---Post Box  --->
+    <!--Section: Social news card-->
+
+
+    @*</td>
+
+
+        </tr>*@
+}
+
+@*</table>*@
