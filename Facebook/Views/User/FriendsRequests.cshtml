@@ -7,43 +7,40 @@
 <h2>FriendsRequests</h2>
 
 <div id="changedTable">
-    <table class="table">
-        <tr>
-            <th>
-                Requests
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.RequestedTo.userAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FriendRequestFlag)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BecameFriendsTime)
-                </th>*@
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
+
+    @foreach (var item in Model)
+    {
+        <div class="row " style="margin-top:8px ;padding:10px; border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25); background-color:aliceblue " >
+            <div class="col-lg-8 col-md-8 col-8 ">
+                @if (item.userImage != null)
+                {
+                    var base64 = Convert.ToBase64String(item.userImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" style="width:30px;height:30px; border-radius:50%" alt="@item.UserName" />
+                }
+                else
+                {
+                    <img src="~/Content/Image User/UserImg.png" style="width:30px;height:30px ;border-radius:50%" alt="@item.UserName" />
+                }
+                @item.UserName
+            </div>
+
+           
+
+                @Ajax.ActionLink("Accept", "AcceptRequest", "User", ajaxOptions: new AjaxOptions()
         {
-            <tr id="@item.Id">
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
+            UpdateTargetId = "frinds",
+            HttpMethod = "Post",
+            OnSuccess = "",
+            InsertionMode = InsertionMode.Replace
+        }, routeValues: new { requestedID = item.Id }
+               , htmlAttributes: new { @class = "btn btn-danger  col-lg-4 col-md-4 col-4" })
+           
+        </div>
 
-                <td>
-                    @Ajax.ActionLink("Accept", "AcceptRequest",
-                   routeValues: new { requestedID = item.Id },
-                   ajaxOptions: new AjaxOptions
-                        {
-                            HttpMethod = "post",
-                       UpdateTargetId = "changedTable",
-                       InsertionMode = InsertionMode.Replace
-                   },
-                   htmlAttributes: new { @class = "btn btn-danger" })
-                </td>
-            </tr>
-        }
+    }
 
-    </table>
+
 </div>

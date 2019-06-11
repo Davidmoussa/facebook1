@@ -21,7 +21,7 @@ namespace Facebook.Controllers
                 .Select(f => f.RequestedBy)
                 .ToList();
             
-            return View(returnedList) ;
+            return PartialView(returnedList) ;
         }
         [HttpPost]
         public ActionResult AcceptRequest(string requestedID)

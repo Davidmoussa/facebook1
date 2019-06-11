@@ -7,13 +7,20 @@
     <div class="form-horizontal">
        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.postContent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.postContent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.postContent, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin:10px; text-align:center;  border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25); padding:10px; ">
+            @*@Html.LabelFor(model => model.postContent, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-12 row">
+                <textarea class=" col-md-12" name="postContent" style="" rows="3" cols="20"></textarea>
+               @* @Html.TextAreaFor(model => model.postContent, new { htmlAttributes = new {@style="width:200; rows:3;"} })*@
+                @Html.ValidationMessageFor(model => model.postContent, "", new { @class = "text-danger"   })
 
                 <input type="file" name="ImagePost" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -23,14 +30,8 @@
 
        
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+       
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
