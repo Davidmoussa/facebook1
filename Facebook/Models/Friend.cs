@@ -11,8 +11,6 @@ namespace Facebook.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-
-
         [Key]
         [Column(Order = 1)]
         //[ForeignKey("RequestedBy")]
@@ -37,7 +35,7 @@ namespace Facebook.Models
         Approved,
         Rejected,
         Blocked,
-        Spam
-        
+        Spam,
+        Pending
     };
 }

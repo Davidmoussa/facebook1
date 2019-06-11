@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Facebook.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "FriendsRequests";
+}
+
+<h2>FriendsRequests</h2>
+
+<div id="changedTable">
+    <table class="table">
+        <tr>
+            <th>
+                Requests
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.RequestedTo.userAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FriendRequestFlag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BecameFriendsTime)
+                </th>*@
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+
+                <td>
+                    @Ajax.ActionLink("Accept", "AcceptRequest",
+                   routeValues: new { requestedID = item.Id },
+                   ajaxOptions: new AjaxOptions
+                        {
+                            HttpMethod = "post",
+                       UpdateTargetId = "changedTable",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   htmlAttributes: new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
