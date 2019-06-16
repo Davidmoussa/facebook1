@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Facebook.Models.ApplicationUser>
+@if (Model != null)
+{
+
+
+    foreach (var item in Model)
+    {
+
+        <div class="row " style="margin-top:8px ;padding:10px; border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25); background-color:aliceblue ">
+            <div class="col-lg-8 col-md-8 col-8 ">
+                @if (item.userImage != null)
+                {
+                    var base64 = Convert.ToBase64String(item.userImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" style="width:30px;height:30px; border-radius:50%" alt="@item.UserName" />
+                }
+                else
+                {
+                    <img src="~/Content/Image User/UserImg.png" style="width:30px;height:30px ;border-radius:50%" alt="@item.UserName" />
+                }
+                @item.UserName
+            </div>
+
+
+
+            @Ajax.ActionLink("Add Friend", "SendFriendRequest", "User", ajaxOptions: new AjaxOptions()
+   {
+       UpdateTargetId = "Friend_Search",
+       HttpMethod = "Post",
+       OnSuccess = "",
+       InsertionMode = InsertionMode.Replace
+   }, routeValues: new { recieverId = item.Id }
+               , htmlAttributes: new { @class = "btn btn-success  col-lg-4 col-md-4 col-4" })
+
+        </div>
+
+
+
+
+    }
+
+}else{ 
+    <div style="text-align:center;padding:50px;font-size:20px;">
+        You serched not found 
+    </div>
+}
+
+
+
+
+

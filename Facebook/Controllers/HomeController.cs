@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Facebook.Controllers
-{
+{  
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -16,7 +16,7 @@ namespace Facebook.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+          
             return View();
         }
 

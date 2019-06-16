@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Facebook.Models.Post>
+
+<style>
+    
+        .postHeders {
+        font-size: 20px;
+
+
+        padding: 5px;
+
+
+
+    }
+
+    .postControl {
+        margin: 0px 5px;
+        padding: 8px;
+
+        display:flex;
+    }
+
+    .postContenner {
+        margin: 5px;
+        box-shadow: 1px 1px 1px gray;
+        margin :12px 5px;
+        border-radius: 5px;
+        padding: 3px;
+        border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25);
+          background:white;
+
+    }
+
+    .postcontent {
+        margin: 5px;
+        font-size: 15px;
+        padding:10px;
+
+    }
+    .divinfo{
+       border-style: solid;
+       border-width: 1px; border-color: rgba(0,0,0,0.25);
+       padding :20px;
+       padding-top:60px;
+       box-shadow: 1px 1px 1px gray;
+       font-size:20px;
+       background:white;
+       margin-top:3px;
+       margin:3px;
+       margin-right:17px;
+       height:700px;
+    }
+    
+</style>
+
+<div class="row " id="postDisplayprofile">
+    @foreach (var item in Model)
+    {
+
+
+        <div class="postContenner">
+            <div class="postHeders ">
+
+                @if (item.ApplicationUser.userImage != null)
+                {
+                    var base64 = Convert.ToBase64String(item.ApplicationUser.userImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" style="width:35px;height:32px ; border-radius:32px" alt="@item.ApplicationUser.UserName" />
+                }
+                else
+                {
+                    <img src="~/Content/Image User/UserImg.png" style="width:32px;height:32px" alt="@item.ApplicationUser.UserName" />
+                }
+
+                @item.ApplicationUser.UserName
+                <div style="font-size:13px; margin-left:40px">
+                    @item.TimeAgo
+                    <div style="float:right ; ">
+                        @Ajax.ActionLink("Edit", "Edit", "Posts", ajaxOptions: new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "postEditView", OnSuccess = "EditPostClick()", InsertionMode = InsertionMode.Replace }, routeValues: new { id=item.postId })
+
+
+                    </div>
+                </div>
+
+                <hr />
+            </div>
+
+            <div class="postcontent">
+                <p style="margin:5px; font-size:14px; padding:5px;">  @item.postContent</p>
+                @if (item.postImg != null)
+                {
+                    var base64 = Convert.ToBase64String(item.postImg);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" style="width:100%;height:100%" alt="@item.postDelete" />
+                }
+            </div>
+            <hr />
+            <section class="postControl col-lg-12 col-12 col-md-12">
+
+                <i style="flex-grow:6; font-size :22px ; color:black">
+                    @Ajax.ActionLink(item.Like.Count().ToString() + "  ", "displayAll", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LikesModalBody", InsertionMode = InsertionMode.Replace, OnSuccess = "LikesModelShow()" }, routeValues: new { postId = item.postId })
+
+                    @Ajax.ActionLink("Like", "Create", "Likes", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "disPlayAllPost", InsertionMode = InsertionMode.Replace }, routeValues: new { postId = item.postId })
+                </i>
+                <i style="flex-grow:1  ; font-size :22px ; color:black ">
+                    @Ajax.ActionLink("Comment", "ListComment", "Comments", ajaxOptions: new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listComment", InsertionMode = InsertionMode.Replace, OnSuccess = "showAndAddComment()" }, routeValues: new { postId = item.postId })
+                </i>
+            </section>
+        </div>
+
+
+
+    }
+
+
+
+
+</div>
+

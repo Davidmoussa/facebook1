@@ -9,9 +9,10 @@
 
 
     <div id="posts_Div" class="col-sm-12 col-md-12 col-lg-6">
-        <div>
-            @Html.Action("Create", "Posts")
-        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cratepost">
+           Create Post
+        </button>
+
 
         <div id="disPlayAllPost">
             @Html.Action("displayAll", "Posts")
@@ -69,8 +70,26 @@
         </div>
     </div>
 </div>
+@* -------------------------------------Create post ??------------------------------- *@
+<div class="modal fade" id="cratepost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Post </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div>
+                @Html.Action("Create", "Posts")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @* ------------------- Jquer Code -------------------------------*@
@@ -86,6 +105,10 @@
             $("#CommentModel").modal('show');
             console.log("oke")
         }
+        $('#postCreatebutton').click(function () {
+            $("#cratepost").modal('toggle');
+            console.log("oke")
+        })
     </script>
 }
 

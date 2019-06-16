@@ -50,6 +50,39 @@ namespace Facebook.Models
 
             return result;
         }
+       public static void setUserName (string Value )
+        {
+            HttpCookie cookie = new HttpCookie("USERNAME", Value);
+            // set the cookie's expiration date
+            cookie.Expires = DateTime.Now.AddDays(10);
+            // set the cookie on client's browser
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+        public static string getUserName ()
+        {
+            if (HttpContext.Current.Request.Cookies["USERNAME"].Value != null && HttpContext.Current.Request.Cookies["USERNAME"] != null)
+            {
+                // if the mvcvalue exists as a cookie, use the cookie to get its value
+                return  HttpContext.Current.Request.Cookies["USERNAME"].Value;
+            } else return null;
+        }
 
+        public static void setUserID(string Value)
+        {
+            HttpCookie cookie = new HttpCookie("USERID", Value);
+            // set the cookie's expiration date
+            cookie.Expires = DateTime.Now.AddDays(10);
+            // set the cookie on client's browser
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+      public  static string getUserId()
+        {
+            if (HttpContext.Current.Request.Cookies["USERID"].Value != null&& HttpContext.Current.Request.Cookies["USERID"]!=null)
+            {
+                // if the mvcvalue exists as a cookie, use the cookie to get its value
+                return HttpContext.Current.Request.Cookies["USERID"].Value.ToString();
+            }
+            else return null;
+        }
     }
 }

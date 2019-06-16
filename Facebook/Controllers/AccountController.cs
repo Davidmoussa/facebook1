@@ -80,7 +80,9 @@ namespace Facebook.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    Session["ID"] = UserManager.FindByName(model.UserName).Id.ToString();
+                   
+                    MethodAndFanction.setUserID(UserManager.FindByName(model.UserName).Id.ToString());
+                    MethodAndFanction.setUserName(model.UserName.ToString());
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -169,20 +171,33 @@ namespace Facebook.Controllers
                 {
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    Session["ID"] = UserManager.FindByEmail(model.Email).Id.ToString();
+
+                    // MethodAndFanction.setUserID(UserManager.FindByEmail(model.Email).Id.ToString());
+                    //MethodAndFanction.setUserName(UserManager.FindByEmail(model.Email).UserName.ToString());
+                    
+                    MethodAndFanction.setUserName(user.UserName);
+                    MethodAndFanction.setUserID(UserManager.FindByName(user.UserName).Id.ToString());
                     RoleManager<IdentityRole> Role = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    //if (!Role.RoleExists("Admin"))
+                    //{
+                    //    Role.Create(new IdentityRole("Admin"));
+                    //}
+                    //else
+                    //{
+                    //    UserManager.AddToRole(MethodAndFanction.getUserId().ToString(), "Admin");
+                    //}
                     if (!Role.RoleExists("User"))
                     {
                         Role.Create(new IdentityRole("User"));
                     }
                     else
                     {
-                        UserManager.AddToRole(Session["ID"].ToString(), "User");
+                        UserManager.AddToRole(UserManager.FindByName(user.UserName).Id.ToString(), "User");
                     }
 
 
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Posts");
                 }
                 AddErrors(result);
             }
@@ -410,8 +425,11 @@ namespace Facebook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            MethodAndFanction.setUserID(null);
+            MethodAndFanction.setUserName(null);
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+            ///RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
         }
 
         //

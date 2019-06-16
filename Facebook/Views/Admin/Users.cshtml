@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Facebook.Models.ApplicationUser>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userBhtDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userAddress)
+        </th>
+       
+        
+        
+        
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        
+        <th>
+            Block
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userBhtDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userAddress)
+        </td>
+        
+        
+        
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.userBlock)
+        </td>
+        <td>
+           
+        </td>
+        <td>
+            @Ajax.ActionLink("Edit", "Edit","Admin" ,new AjaxOptions() {HttpMethod ="Get", OnSuccess="showModelEditVew()",InsertionMode=InsertionMode.Replace,UpdateTargetId= "EditAdminuserGrid" } ,new { id=item.Id }) 
+          
+        </td>
+    </tr>
+}
+
+</table>

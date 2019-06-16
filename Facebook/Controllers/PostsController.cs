@@ -13,11 +13,14 @@ namespace Facebook.Controllers
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+       
+       
 
         // GET: Posts
         public ActionResult Index()
         {
-//            var posts = db.Posts.Include(p => p.ApplicationUser);
+            Session["ID"] = MethodAndFanction.getUserId().ToString();
+            //            var posts = db.Posts.Include(p => p.ApplicationUser);
             return View();
         }
 
@@ -34,10 +37,15 @@ namespace Facebook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "postId,postContent,postDate,postDelete,userId")] Post post ,HttpPostedFileBase ImagePost)
         {
-            
-            var result = db.Posts.Where(i => i.postDelete == false).Include(i=>i.Like).Include(i=>i.ApplicationUser).Include(i=>i.Comment).OrderByDescending(i => i.postDate);
-            ViewBag.userId = Session["ID"].ToString();  // id this user Create Post
-            post.userId = Session["ID"].ToString();   // id this user Create Post
+            string Userid = MethodAndFanction.getUserId().ToString();
+            var frind = db.Users.SingleOrDefault(i => i.Id == Userid).Friends.Select(i => i.RequestedTo.Id).ToList<string>();
+            frind.AddRange(db.Users.SingleOrDefault(i => i.Id == Userid).Friends.Select(i => i.RequestedTo.Id));
+            frind.Add(Userid);
+            var x = frind.Select(i => i).ToList<string>();
+            var result = db.Posts.Where(i => x.Contains((string)i.userId) && i.ApplicationUser.userBlock == false).OrderByDescending(i => i.postDate).ToList();
+            // var result = db.Posts.Where(i => i.postDelete == false).Include(i=>i.Like).Include(i=>i.ApplicationUser).Include(i=>i.Comment).OrderByDescending(i => i.postDate);
+            ViewBag.userId = Userid; // id this user Create Post
+            post.userId = Userid;   // id this user Create Post
             post.postDate = DateTime.Now;    //Time Create this post 
             post.postDelete = false;   // Default  is Not Deleted 
             if (ImagePost != null)    // if post  Has image
@@ -49,6 +57,7 @@ namespace Facebook.Controllers
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
+                ModelState.Clear();
                 return PartialView("displayAll",result.ToList());
             }
 
@@ -58,8 +67,13 @@ namespace Facebook.Controllers
 
         public ActionResult displayAll()
         {
-            var result = db.Posts.Where(i => i.postDelete == false).Include(i => i.Like).Include(i => i.ApplicationUser).Include(i => i.Comment).OrderByDescending(i => i.postDate);
-
+            string Userid = MethodAndFanction.getUserId().ToString();
+          // var result = db.Posts.Where(i => i.postDelete == false ).Include(i => i.Like).Include(i => i.ApplicationUser).Include(i => i.Comment).OrderByDescending(i => i.postDate);
+            var frind = db.Users.SingleOrDefault(i => i.Id == Userid).Friends.Select(i => i.RequestedTo.Id).ToList<string>();
+            frind.AddRange(db.Users.SingleOrDefault(i => i.Id == Userid).Friends.Select(i => i.RequestedTo.Id));
+            frind.Add(Userid);
+            var x = frind.Select(i => i).ToList<string>();
+            var result = db.Posts.Where(i => x.Contains((string)i.userId )&&i.ApplicationUser.userBlock==false).OrderByDescending(i=>i.postDate).ToList();
             return PartialView(result.ToList());
         }
         // GET: Posts/Edit/5
@@ -74,8 +88,8 @@ namespace Facebook.Controllers
             {
                 return HttpNotFound();
             }
-           
-            return View(post);
+            TempData["PostIdEdit"] = id;
+            return PartialView(post);
         }
 
         // POST: Posts/Edit/5
@@ -83,16 +97,17 @@ namespace Facebook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "postId,postContent,postDate,postDelete,userId")] Post post)
+        public ActionResult Edit( Post post)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
+              int idPost =int.Parse(TempData["PostIdEdit"].ToString());
+                db.Posts.SingleOrDefault(i => i.postId == idPost).postContent = post.postContent;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListPostUser", "Profile");
             }
            
-            return View(post);
+            return PartialView(post);
         }
 
         // GET: Posts/Delete/5

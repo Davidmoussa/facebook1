@@ -207,11 +207,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,13 +238,21 @@
     <Compile Include="Migrations\201906061547151_TabelFriend.Designer.cs">
       <DependentUpon>201906061547151_TabelFriend.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906122218425_friend2.cs" />
+    <Compile Include="Migrations\201906122218425_friend2.Designer.cs">
+      <DependentUpon>201906122218425_friend2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906122324579_friend3.cs" />
+    <Compile Include="Migrations\201906122324579_friend3.Designer.cs">
+      <DependentUpon>201906122324579_friend3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Like.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Views\Comments\ManageViewModels.cs" />
     <Compile Include="Models\MethodAndFanction.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,7 +285,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -317,6 +329,17 @@
     <Content Include="Views\Comments\ListComment.cshtml" />
     <Content Include="Views\User\FriendsRequests.cshtml" />
     <Content Include="Views\User\RestRequests.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Search.cshtml" />
+    <Content Include="Views\User\DisplayAll.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\InfoUse.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Profile\ListPostUser.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,6 +367,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906061547151_TabelFriend.resx">
       <DependentUpon>201906061547151_TabelFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906122218425_friend2.resx">
+      <DependentUpon>201906122218425_friend2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906122324579_friend3.resx">
+      <DependentUpon>201906122324579_friend3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

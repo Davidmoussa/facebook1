@@ -1,0 +1,26 @@
+﻿@model Facebook.Models.ApplicationUser
+
+
+@using (Ajax.BeginForm("Search",ajaxOptions:new AjaxOptions { HttpMethod="Post", UpdateTargetId= "Friend_Search", InsertionMode=InsertionMode.Replace }  ))
+{
+    @Html.AntiForgeryToken()
+    
+    
+      
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+                <input   name="keyUsername"  style="width:80%; margin:auto ; padding:10px;  " type="text" placeholder=".form-control-lg">
+
+
+    <input type="submit" value="SearCh" class="btn btn-default" />
+
+
+
+       
+    
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

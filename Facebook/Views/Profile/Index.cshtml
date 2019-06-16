@@ -1,0 +1,170 @@
+﻿@model Facebook.Models.ApplicationUser
+
+
+<style>
+    .header{
+        height:170px;
+        width:100%;
+        align-items:center;
+        background:#37373a;
+        padding:10px;
+        padding-left:80px;
+        box-sizing:border-box;
+        color:white;
+        font-size:30px;
+        
+    }
+        .postHeders {
+        font-size: 20px;
+       
+        
+        padding: 5px;
+        
+       
+        
+    }
+
+    .postControl {
+        margin: 0px 5px;
+        padding: 8px;
+       
+        display:flex;
+    }
+
+    .postContenner {
+        margin: 5px;
+        box-shadow: 1px 1px 1px gray;
+        margin :12px 5px;
+        border-radius: 5px;
+        padding: 3px;
+        border-style: solid;
+        border-width: 1px; border-color: rgba(0,0,0,0.25);
+          background:white;
+        
+    }
+
+    .postcontent {
+        margin: 5px;
+        font-size: 15px;
+        padding:10px;
+       
+    }
+    .divinfo{
+       border-style: solid;
+       border-width: 1px; border-color: rgba(0,0,0,0.25);
+       padding :20px;
+       padding-top:60px;
+       box-shadow: 1px 1px 1px gray;
+       font-size:20px;
+       background:white;
+       margin-top:3px;
+       margin:3px;
+       margin-right:17px;
+       height:700px;
+    }
+    .containerDivprofile{
+      background:#eaeaea;
+    }
+</style>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row col-lg-12 col-lg-12 col-md-12  containerDivprofile" >
+   
+    <header class="row col-lg-12 col-lg-12 col-md-12  header">
+        @if (Model.userImage != null)
+        {
+            var base64 = Convert.ToBase64String(Model.userImage);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img src="@imgSrc" style="width:150px;height:150px ; border-radius:50%" alt="@Model.UserName" />
+        }
+        else
+        {
+            <img src="~/Content/Image User/UserImg.png" style="width:150px;height:150px ; border-radius :50%" alt="@Model.UserName" />
+        }
+
+        @Model.UserName
+    </header>
+    <div class="row col-lg-4 col-sm-7 col-md-12 divinfo" id="UserInFoGrid">
+        @Html.Action("InfoUse", "Profile")
+    </div>
+    @* This post of this User  *@
+    <div class="row col-lg-6 col-sm-7 col-md-12 " id="postDisplayprofile">
+        @Html.Action("ListPostUser", "Profile")
+        </div>
+    
+   @* -----------------------------------------------------------Js Code---------------------------------------------------------------------- *@
+<div class="modal fade" id="EditPostModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Post </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="postEditView">
+                @Html.Action("Edit", "Posts")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+    
+   
+
+    </div>
+@* ---------------------------------------------------Edit post Model---------------------------------------------------- *@
+<div class="modal fade" id="EditproflieModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Post </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div @*id="profileEditView"*@>
+                @Html.Action("Edit", "Profile")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+@* --------------------------------Edit profile ------------------------------------------------------------------ *@
+
+@section scripts {
+    <script type="text/javascript">
+        function EditPostClick() {
+            $("#EditPostModel").modal('show');
+            console.log("oke55")
+        }
+        function EditPostClickend() {
+            $("#EditPostModel").modal('toggle');
+            console.log("oke")
+        }
+        function EditProfileClick() {
+            $("#EditproflieModel").modal('show');
+            console.log("oke22")
+        }
+
+        function EditproFileClickend() {
+            $("#EditproflieModel").modal('toggle');
+            console.log("oke")
+        }
+    </script>
+}
+
+

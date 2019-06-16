@@ -13,13 +13,12 @@ namespace Facebook.Controllers
     public class LikesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-       
+      
 
         
         public ActionResult Create( int postId)
         {
-
+            Session["ID"] = MethodAndFanction.getUserId().ToString();
             string userId = Session["ID"].ToString();
             if (userId != null)
             {

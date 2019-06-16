@@ -11,20 +11,21 @@ using Facebook.Models;
 namespace Facebook.Controllers
 {  
 
+
     
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
-        // Create Comment  ??
-        // get
-       public ActionResult AddComment()
+
+       
+        public ActionResult AddComment()
         {
             return PartialView();
         }
         [HttpPost]
         public ActionResult AddComment( Comment comment )
         {
+            Session["ID"] = MethodAndFanction.getUserId().ToString();
             //var Result = db.Comments.Where(i => i.postId == postId && i.commentDeleted == false).OrderBy(i => i.commentDate).Include(i => i.ApplicationUser).ToList();
             int postId = int.Parse(TempData["PostId"].ToString());
             if ( Session["ID"]!=null && postId >0)
